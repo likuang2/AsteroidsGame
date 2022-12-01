@@ -1,5 +1,5 @@
 Spaceship ship = new Spaceship();
-boolean charge, forward, left, right, back = false;
+boolean forward, left, right, back = false;
 int storedenergy = 0;
 Star [] sky = new Star[200];
 public void setup() 
@@ -13,14 +13,8 @@ public void setup()
 public void draw() 
 {
   background(0);
-  if (charge == true) {
-    if (storedenergy < 480) {
-      storedenergy+= 2;
-    }
-    for (int i = 0; i<storedenergy; i++) {
-      fill(36, 234, 240);
-      rect(10, 10, storedenergy, 30, 20 );
-    }
+  for (int i = 0; i < sky.length; i++) {
+    sky[i].show();
   }
   if (right == true) {
     ship.turn(3);
@@ -46,10 +40,7 @@ public void keyPressed()
     ship.myCenterY = (int)(random(20, 490));
     ship.myPointDirection = (int)(random(360));
   }
-  if (keyCode == SHIFT) {
-    charge = true;
-  }
-  if (key == 'w' || key == 'W') {
+ if (key == 'w' || key == 'W') {
     forward = true;
   }
   if (key == 'a' || key == 'A') {
@@ -65,11 +56,6 @@ public void keyPressed()
 
 public void keyReleased()
 {
-  if (keyCode == SHIFT) {
-    charge = false;
-    ship.accelerate((storedenergy/10));
-    storedenergy = 0;
-  }
   if (key == 'w' || key == 'W') {
     forward = false;
   }
