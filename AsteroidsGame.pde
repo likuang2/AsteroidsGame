@@ -1,6 +1,6 @@
 Spaceship ship = new Spaceship();
 boolean forward, left, right, back = false;
-int storedenergy = 0;
+ArrayList <Asteroid> rock = new ArrayList <Asteroid>();
 Star [] sky = new Star[200];
 public void setup() 
 {
@@ -9,12 +9,24 @@ public void setup()
   for (int i = 0; i < sky.length; i++) {
     sky[i] = new Star();
   }
+  for(int i = 0; i < 10; i++){
+    rock.add(new Asteroid());
+  }
 }
 public void draw() 
 {
   background(0);
   for (int i = 0; i < sky.length; i++) {
     sky[i].show();
+  }
+  for (int i = rock.size() -1; i > 0; i--) {
+  float j = dist((float)ship.getX(),(float)ship.getY(),(float)rock.get(i).getX(),(float)rock.get(i).getY());
+    if (j < 10){
+  rock.remove(i);
+    } else {
+  rock.get(i).show();
+  rock.get(i).move();
+    }
   }
   if (right == true) {
     ship.turn(3);
@@ -30,6 +42,9 @@ public void draw()
   }
   ship.move();
   ship.show();
+    for(int i = 0; i < 10; i++){
+  
+  }
 }
 
 public void keyPressed()
