@@ -1,17 +1,20 @@
 Spaceship ship = new Spaceship();
-boolean forward, left, right, back = false;
+boolean forward, left, right, back, trigger = false;
 ArrayList <Asteroid> rock = new ArrayList <Asteroid>();
+ArrayList <Bullet> gun = new ArrayList <Bullet> ();
 Star [] sky = new Star[200];
 public void setup() 
 {
   size(500, 500);
   background(0);
+  //frameRate(144);//i wanted just to speed everything up and this was the easiest way lol
   for (int i = 0; i < sky.length; i++) {
     sky[i] = new Star();
   }
   for(int i = 0; i < 10; i++){
     rock.add(new Asteroid());
   }
+  
 }
 public void draw() 
 {
@@ -19,15 +22,38 @@ public void draw()
   for (int i = 0; i < sky.length; i++) {
     sky[i].show();
   }
+  if (trigger){
+   gun.add(new Bullet(ship));
+    }
+    
+    for(int i = gun.size() -1; i > 0; i--){
+    gun.get(i).show();
+    gun.get(i).move();
+  }
+    
+   
   for (int i = rock.size() -1; i > 0; i--) {
   float j = dist((float)ship.getX(),(float)ship.getY(),(float)rock.get(i).getX(),(float)rock.get(i).getY());
     if (j < 10){
   rock.remove(i);
+  //break;
     } else {
   rock.get(i).show();
   rock.get(i).move();
     }
+    if (gun.size() >= 1){
+      for (int j = gun.size() -1; j > 0; j--){
+        for (int z = rock.size() -1; k > 0; k--) {
+          if (dist(gun.get(j).getX(), gun.get(j), getY(), rock.get(k).getX(), rock.get(k).getY () ) < 10) {
+            rock.remove(k);
+            gun.remove(j);
+            break;
+          }
+        }
+      }
+    }
   }
+ 
   if (right == true) {
     ship.turn(3);
   }
@@ -67,6 +93,9 @@ public void keyPressed()
   if (key == 's' || key == 'S') {
     back = true;
   }
+   if (key == ' ') {
+    trigger = true;
+  }
 }
 
 public void keyReleased()
@@ -77,10 +106,13 @@ public void keyReleased()
   if (key == 'a' || key == 'A') {
     left = false;
   }
-  if (key == 'd' || key == 'S') {
+  if (key == 'd' || key == 'D') {
     right = false;
   }
-  if (key == 's' || key == 'D') {
+  if (key == 's' || key == 'S') {
     back = false;
+  }
+  if (key == ' ') {
+    trigger = false;
   }
 }
