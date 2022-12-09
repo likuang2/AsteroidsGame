@@ -7,7 +7,7 @@ public void setup()
 {
   size(500, 500);
   background(0);
-  //frameRate(144);//i wanted just to speed everything up and this was the easiest way lol
+  frameRate(144);//i wanted just to speed everything up and this was the easiest way lol
   for (int i = 0; i < sky.length; i++) {
     sky[i] = new Star();
   }
