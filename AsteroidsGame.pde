@@ -36,17 +36,16 @@ public void draw()
   float j = dist((float)ship.getX(),(float)ship.getY(),(float)rock.get(i).getX(),(float)rock.get(i).getY());
     if (j < 10){
   rock.remove(i);
-  //break;
     } else {
   rock.get(i).show();
   rock.get(i).move();
     }
     if (gun.size() >= 1){
-      for (int j = gun.size() -1; j > 0; j--){
-        for (int z = rock.size() -1; k > 0; k--) {
-          if (dist(gun.get(j).getX(), gun.get(j), getY(), rock.get(k).getX(), rock.get(k).getY () ) < 10) {
+      for (int d = gun.size() -1; d > 0; d--){
+        for (int k = rock.size() -1; k > 0; k--) {
+          if (dist((float)gun.get(d).getX(),(float)gun.get(d).getY(),(float)rock.get(k).getX(),(float)rock.get(k).getY()) < 10) {
             rock.remove(k);
-            gun.remove(j);
+            gun.remove(d);
             break;
           }
         }
